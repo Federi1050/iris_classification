@@ -27,8 +27,6 @@ class DatasetManager:
     def get_data(self):
         return self.__data
 
-
-
     @staticmethod
     def scarica_dataset():
         df = pd.read_csv("dataset/Iris.csv")
@@ -38,8 +36,6 @@ class DatasetManager:
     def target_encoding(y):
         le = LabelEncoder()
         return le.fit_transform(y)
-
-
 
     def split_data(self, target):
         X = self.__data.drop(columns=target)
