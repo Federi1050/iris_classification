@@ -9,6 +9,7 @@ testing = True
 if testing:
     pass
     dataset_mg = DatasetManager()
+
     #print("prima")
     #print(dataset_mg.get_data().head())
     dataset_mg.split_data('Species')
@@ -16,6 +17,45 @@ if testing:
     dataset_mg.scaling()
 
     NN = NeuralNetwork()
+
+    #activations = ['relu', 'tanh']
+    #optimizers = ['adam', 'sgd', 'RMSprop']
+
+    #data = dataset_mg.get_data()
+
+    #preparazione grid
+    #X = data.drop(columns=["Species"])
+    #y = dataset_mg.target_encoding(data["Species"])
+
+    #results = NN.grid_search_cv(X, y, activations, optimizers)
+
+    #for r in results:
+        #print(r)
+
+    '''
+    risultati gridsearch 50 epochs:
+    BEST MODEL:
+    {'activation': 'tanh', 'optimizer': 'RMSprop', 'mean_accuracy': np.float64(0.9733333110809326), 'std': np.float64(0.013333344459533693)}
+    {'activation': 'tanh', 'optimizer': 'RMSprop', 'mean_accuracy': np.float64(0.9733333110809326), 'std': np.float64(0.013333344459533693)}
+    {'activation': 'tanh', 'optimizer': 'adam', 'mean_accuracy': np.float64(0.9666666507720947), 'std': np.float64(0.021081849811218006)}
+    {'activation': 'relu', 'optimizer': 'adam', 'mean_accuracy': np.float64(0.9466666460037232), 'std': np.float64(0.02666666209697973)}
+    {'activation': 'relu', 'optimizer': 'RMSprop', 'mean_accuracy': np.float64(0.9466666460037232), 'std': np.float64(0.02666666209697973)}
+    {'activation': 'tanh', 'optimizer': 'sgd', 'mean_accuracy': np.float64(0.9066666483879089), 'std': np.float64(0.06798693097817053)}
+    {'activation': 'relu', 'optimizer': 'sgd', 'mean_accuracy': np.float64(0.8466666579246521), 'std': np.float64(0.10456256178911083)}
+    '''
+
+    '''
+    risultati gridsearch 100 epochs:
+     BEST MODEL:
+    {'activation': 'tanh', 'optimizer': 'adam', 'mean_accuracy': np.float64(0.9933333277702332), 'std': np.float64(0.013333344459533693)}
+    {'activation': 'tanh', 'optimizer': 'adam', 'mean_accuracy': np.float64(0.9933333277702332), 'std': np.float64(0.013333344459533693)}
+    {'activation': 'tanh', 'optimizer': 'RMSprop', 'mean_accuracy': np.float64(0.9933333277702332), 'std': np.float64(0.013333344459533693)}
+    {'activation': 'relu', 'optimizer': 'RMSprop', 'mean_accuracy': np.float64(0.9866666555404663), 'std': np.float64(0.016329945245311346)}
+    {'activation': 'relu', 'optimizer': 'adam', 'mean_accuracy': np.float64(0.9799999833106995), 'std': np.float64(0.016329945245311346)}
+    {'activation': 'relu', 'optimizer': 'sgd', 'mean_accuracy': np.float64(0.9533333063125611), 'std': np.float64(0.026666665077209474)}
+    {'activation': 'tanh', 'optimizer': 'sgd', 'mean_accuracy': np.float64(0.9466666579246521), 'std': np.float64(0.03399346607355943)}
+    '''
+
     NN.nn_model(dataset_mg.get_X_train(), 3,dataset_mg.get_y_train())
 
     y_pred = NN.predict(dataset_mg.get_X_test())
