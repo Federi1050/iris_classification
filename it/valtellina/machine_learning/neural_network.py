@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt
 from sklearn.model_selection import StratifiedKFold
 from sklearn.preprocessing import StandardScaler
 
-
 class NeuralNetwork:
     def __init__(self):
         self.history = None

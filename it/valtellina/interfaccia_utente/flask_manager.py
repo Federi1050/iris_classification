@@ -1,6 +1,7 @@
 import base64
 from io import BytesIO
 import numpy as np
+import pandas as pd
 
 from flask import Flask, request, jsonify, render_template_string
 from matplotlib import pyplot as plt
@@ -160,8 +161,8 @@ class FlaskManager:
                 'PetalLengthCm': input.get('PetalLengthCm'),
                 'PetalWidthCm': input.get('PetalWidthCm'),
             }
-            y_pred = self.__nn.predict(oggetto)
-            return jsonify(y_pred)
+            y_pred = self.__nn.predict(pd.DataFrame([oggetto]))
+            return jsonify(y_pred.tolist())
 
         @self.app.route('/grafici_valutazione')
         def grafici():

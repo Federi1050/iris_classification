@@ -30,6 +30,7 @@ class DatasetManager:
     @staticmethod
     def scarica_dataset():
         df = pd.read_csv("dataset/Iris.csv")
+        df.drop(columns=["Id"], inplace=True)
         return df
 
     @staticmethod
