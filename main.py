@@ -1,6 +1,7 @@
 import numpy as np
 from sklearn.metrics import accuracy_score
 
+from it.valtellina.interfaccia_utente.flask_manager import FlaskManager
 from it.valtellina.machine_learning.dataset_manager import DatasetManager
 from it.valtellina.machine_learning.neural_network import NeuralNetwork
 
@@ -69,5 +70,6 @@ if testing:
     NN.plot_loss()
 
 else:
-    pass
     # flask
+    app = FlaskManager()
+    app.run(host='0.0.0.0', port=5000, debug=True)
