@@ -5,7 +5,7 @@ from it.valtellina.interfaccia_utente.flask_manager import FlaskManager
 from it.valtellina.machine_learning.dataset_manager import DatasetManager
 from it.valtellina.machine_learning.neural_network import NeuralNetwork
 
-testing = True
+testing = False
 
 if testing:
     pass
