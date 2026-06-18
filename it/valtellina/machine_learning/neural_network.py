@@ -97,6 +97,7 @@ class NeuralNetwork:
     '''
 
     def predict(self, test):
+        '''
         class_names = ['Iris-setosa','Iris-versicolor','Iris-virginica']
         input_scaled = self.scaler.transform(test)
         probabilities = self.model.predict(input_scaled, verbose=0)
@@ -113,6 +114,8 @@ class NeuralNetwork:
                 "predicted_class": predicted_class,
                 "probabilities": probs_dict
             })
+            '''
+        results = self.model.predict(test)
 
         return results
 

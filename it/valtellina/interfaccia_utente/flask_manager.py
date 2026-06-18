@@ -5,7 +5,7 @@ import pandas as pd
 
 from flask import Flask, request, jsonify, render_template_string
 from matplotlib import pyplot as plt
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, confusion_matrix
 
 from it.valtellina.machine_learning.dataset_manager import DatasetManager
 from it.valtellina.machine_learning.neural_network import NeuralNetwork
@@ -258,7 +258,40 @@ class FlaskManager:
 
             y_pred_class = np.argmax(y_pred, axis=1)
             y_test_class = np.argmax(self.__ds_mg.get_y_test(), axis=1)
+            print(y_pred_class)
+            print(y_test_class)
             accuracy = accuracy_score(y_test_class, y_pred_class)
+            return jsonify({"accuracy": accuracy})
+
+            class_names = [
+                "Iris-setosa",
+                "Iris-versicolor",
+                "Iris-virginica"
+            ]
+
+            y_pred_class = [
+                pred["predicted_class"]
+                for pred in y_pred
+            ]
+
+            y_test_class = [
+                class_names[np.argmax(row)]
+                for row in self.__ds_mg.get_y_test()
+            ]
+
+            correct = 0
+
+            for i in range(len(y_test_class)):
+                print("PRED:", y_pred_class[i], "REAL:", y_test_class[i])
+                if y_pred_class[i] == y_test_class[i]:
+                    correct += 1
+
+            print("ACCURACY MANUALE:", correct / len(y_test_class))
+
+            accuracy = accuracy_score(
+                y_test_class,
+                y_pred_class
+            )
 
             return jsonify({
                 'accuracy': accuracy
