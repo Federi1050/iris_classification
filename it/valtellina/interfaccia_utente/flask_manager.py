@@ -10,43 +10,8 @@ from sklearn.metrics import accuracy_score
 from it.valtellina.machine_learning.dataset_manager import DatasetManager
 from it.valtellina.machine_learning.neural_network import NeuralNetwork
 
-
-class FlaskManager:
-    def __init__(self):
-        print("inizializzzo flask_manager")
-        self.app = Flask(__name__)
-        self.__register_routes()  # inizializzazione delle varie root tutte insieme
-
-        self.__ds_mg = None
-        self.__nn = None
-
-    def _init_ml_pipeline(self):
-        print("inizializzo dataset manager")
-
-        self.__ds_mg = DatasetManager()
-        self.__ds_mg.split_data('Species')
-        scaler = self.__ds_mg.scaling()
-
-        print("inizializzo neural network")
-        self.__nn = NeuralNetwork(scaler)
-
-        print("training modello")
-        X_train = self.__ds_mg.get_X_train()
-        y_train = self.__ds_mg.get_y_train()
-
-        self.__nn.nn_model(X_train, 3, y_train)
-
-        print("modello creato e addestrato")
-
-    def run(self, **kwargs):
-        self.app.run(**kwargs)
-
-    def __register_routes(self):
-        @self.app.route('/')
-        def index():
-            self._init_ml_pipeline()
-            return """
-                 <!DOCTYPE html>
+DASHBORD_HTML = '''
+<!DOCTYPE html>
     <html lang="it">
     <head>
         <meta charset="UTF-8">
@@ -149,7 +114,97 @@ class FlaskManager:
     </div>
     </body>
     </html>
-                """
+'''
+
+LOADING_HTML = '''
+<!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <style>
+            body{
+                display:flex;
+                justify-content:center;
+                align-items:center;
+                height:100vh;
+                font-family:Arial;
+                flex-direction:column;
+            }
+
+            .loader{
+                width:60px;
+                height:60px;
+                border:6px solid #ddd;
+                border-top:6px solid #3498db;
+                border-radius:50%;
+                animation:spin 1s linear infinite;
+            }
+
+            @keyframes spin{
+                from{transform:rotate(0deg);}
+                to{transform:rotate(360deg);}
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="loader"></div>
+        <h3>Caricamento modello ML...</h3>
+
+        <script>
+            fetch('/init')
+            .then(() => {
+                window.location.href = '/dashboard';
+            });
+        </script>
+
+    </body>
+    </html>
+'''
+
+class FlaskManager:
+    def __init__(self):
+        print("inizializzzo flask_manager")
+        self.app = Flask(__name__)
+        self.__register_routes()  # inizializzazione delle varie root tutte insieme
+
+        self.__ds_mg = None
+        self.__nn = None
+
+    def _init_ml_pipeline(self):
+        print("inizializzo dataset manager")
+
+        self.__ds_mg = DatasetManager()
+        self.__ds_mg.split_data('Species')
+        scaler = self.__ds_mg.scaling()
+
+        print("inizializzo neural network")
+        self.__nn = NeuralNetwork(scaler)
+
+        print("training modello")
+        X_train = self.__ds_mg.get_X_train()
+        y_train = self.__ds_mg.get_y_train()
+
+        self.__nn.nn_model(X_train, 3, y_train)
+
+        print("modello creato e addestrato")
+
+    def run(self, **kwargs):
+        self.app.run(**kwargs)
+
+    def __register_routes(self):
+        @self.app.route('/')
+        def loading():
+            return LOADING_HTML
+
+        @self.app.route('/init')
+        def init():
+            self._init_ml_pipeline()
+            return {"status": "ok"}
+
+        @self.app.route('/dashboard')
+        def dashboard():
+            return DASHBORD_HTML
 
         @self.app.route('/predict',methods=['POST'])
         def predict():
