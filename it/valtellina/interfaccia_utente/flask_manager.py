@@ -217,7 +217,27 @@ class FlaskManager:
                 'PetalWidthCm': input.get('PetalWidthCm'),
             }
             y_pred = self.__nn.predict(pd.DataFrame([oggetto]))
-            return jsonify(y_pred)
+            probs = y_pred[0].tolist()
+
+            labels = [
+                "Iris-setosa",
+                "Iris-versicolor",
+                "Iris-virginica"
+            ]
+
+            result = {
+                label: float(prob)
+                for label, prob in zip(labels, probs)
+            }
+
+            predicted_class = labels[int(np.argmax(probs))]
+
+            # print(result)
+
+            return jsonify({
+                "probabilities": result,
+                "prediction": predicted_class
+            })
 
         @self.app.route('/grafici_valutazione')
         def grafici():
@@ -258,41 +278,10 @@ class FlaskManager:
 
             y_pred_class = np.argmax(y_pred, axis=1)
             y_test_class = np.argmax(self.__ds_mg.get_y_test(), axis=1)
-            print(y_pred_class)
-            print(y_test_class)
+
+            # print(y_pred_class)
+            # print(y_test_class)
+
             accuracy = accuracy_score(y_test_class, y_pred_class)
+
             return jsonify({"accuracy": accuracy})
-
-            class_names = [
-                "Iris-setosa",
-                "Iris-versicolor",
-                "Iris-virginica"
-            ]
-
-            y_pred_class = [
-                pred["predicted_class"]
-                for pred in y_pred
-            ]
-
-            y_test_class = [
-                class_names[np.argmax(row)]
-                for row in self.__ds_mg.get_y_test()
-            ]
-
-            correct = 0
-
-            for i in range(len(y_test_class)):
-                print("PRED:", y_pred_class[i], "REAL:", y_test_class[i])
-                if y_pred_class[i] == y_test_class[i]:
-                    correct += 1
-
-            print("ACCURACY MANUALE:", correct / len(y_test_class))
-
-            accuracy = accuracy_score(
-                y_test_class,
-                y_pred_class
-            )
-
-            return jsonify({
-                'accuracy': accuracy
-            })
