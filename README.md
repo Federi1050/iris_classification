@@ -101,6 +101,20 @@ Iris Classifier è provvisto di diversi endpoint GET e POST, consultabili nella 
 ```
 http://127.0.0.1:5000/
 ```
+Durante il training del nostro modello di neural network l'utente viene informato che sta caricando tramite animazione apposita per poi essere reinderizzato automaticamente alla dashboard.
+
+Questo avviene visto che l'html resposabile per la pagina di loading chiama in automatico la pipeline di inizializzazione e una volta che quest ultima ha risposto che il processo è stato completato con successo reinderizza l'utente alla dashboard
+
+Se un utente volesse inizializzare il modello senza vedere la schermata di loading può utilizzare la route
+'''
+http://127.0.0.1:5000/init
+'''
+Se un utente volesse visualizzare la dashbord senza aver inizializzato il modello può utilizzare la route
+'''
+http://127.0.0.1:5000/dashboard
+'''
+Sebbene sia possibile fare questi passaggi in maniera manuale quando si chiama l'inizializzazione non si viene reinderizzati automaticamente alla dashbord, passaggio che esegue l'html responsabile per la pagina di loading. Molto più grave se ci si dimentica di chiamare l'inizializzazione visto che senza il modello creato non è possibile usufruire delle funzionalità del programma.
+
 Le funzionalità dell'API sono le seguenti:
 
 ### Grafici di valutazione
