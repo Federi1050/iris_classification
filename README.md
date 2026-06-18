@@ -8,7 +8,7 @@ progettata per analizzare il dataset iris e classificare i record. Inoltre, dato
 il tutto tramite l'utilizzo di una rete neurale creata appositamente.
 
 ## DATASET
-Il dataset si trova a questo link: [https://archive.ics.uci.edu/dataset/236/seeds](https://www.kaggle.com/datasets/uciml/iris).
+Il dataset si trova a questo link: [https://www.kaggle.com/datasets/uciml/iris](https://www.kaggle.com/datasets/uciml/iris).
 
 Il dataset è un file ".csv" composto dalle seguenti feature:
 1. id 
