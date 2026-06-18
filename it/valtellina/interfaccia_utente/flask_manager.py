@@ -208,7 +208,7 @@ class FlaskManager:
 
         @self.app.route('/predict',methods=['POST'])
         def predict():
-            if self.__nn is None: return jsonify({"ERRORE": "non hai inizializzato il modello! Usa il path '/' per inizializzarlo"})
+            if self.__nn is None: return jsonify({"ERRORE": "non hai inizializzato il modello! Usa il path '/' o '/init' per inizializzarlo"})
             input = request.get_json()
             oggetto = {
                 'SepalLengthCm': input.get('SepalLengthCm'),
@@ -222,7 +222,7 @@ class FlaskManager:
         @self.app.route('/grafici_valutazione')
         def grafici():
             if self.__nn is None: return jsonify(
-                {"ERRORE": "non hai inizializzato il modello! Usa il path '/' per inizializzarlo"})
+                {"ERRORE": "non hai inizializzato il modello! Usa il path '/' o '/init' per inizializzarlo"})
             fig1 = self.__nn.plot_accuracy()
             fig2 = self.__nn.plot_loss()
 
@@ -253,7 +253,7 @@ class FlaskManager:
         @self.app.route('/valutazione')
         def valutazione():
             if self.__nn is None: return jsonify(
-                {"ERRORE": "non hai inizializzato il modello! Usa il path '/' per inizializzarlo"})
+                {"ERRORE": "non hai inizializzato il modello! Usa il path '/' o '/init' per inizializzarlo"})
             y_pred = self.__nn.predict(self.__ds_mg.get_X_test())
 
             y_pred_class = np.argmax(y_pred, axis=1)
