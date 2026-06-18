@@ -5,33 +5,32 @@ from it.valtellina.interfaccia_utente.flask_manager import FlaskManager
 from it.valtellina.machine_learning.dataset_manager import DatasetManager
 from it.valtellina.machine_learning.neural_network import NeuralNetwork
 
-testing = False
+testing = True
 
 if testing:
-    pass
     dataset_mg = DatasetManager()
 
     #print("prima")
     #print(dataset_mg.get_data().head())
-    dataset_mg.split_data('Species')
+    #dataset_mg.split_data('Species')
     #print(dataset_mg.get_X_train().head())
-    dataset_mg.scaling()
+    #dataset_mg.scaling()
 
-    NN = NeuralNetwork()
+    NN = NeuralNetwork(None)
 
-    #activations = ['relu', 'tanh']
-    #optimizers = ['adam', 'sgd', 'RMSprop']
+    activations = ['relu', 'tanh']
+    optimizers = ['adam', 'sgd', 'RMSprop']
 
-    #data = dataset_mg.get_data()
+    data = dataset_mg.get_data()
 
     #preparazione grid
-    #X = data.drop(columns=["Species"])
-    #y = dataset_mg.target_encoding(data["Species"])
+    X = data.drop(columns=["Species"])
+    y = dataset_mg.target_encoding(data["Species"])
 
-    #results = NN.grid_search_cv(X, y, activations, optimizers)
+    results = NN.grid_search_cv(X, y, activations, optimizers)
 
-    #for r in results:
-        #print(r)
+    for r in results:
+        print(r)
 
     '''
     risultati gridsearch 50 epochs:
@@ -57,17 +56,17 @@ if testing:
     {'activation': 'tanh', 'optimizer': 'sgd', 'mean_accuracy': np.float64(0.9466666579246521), 'std': np.float64(0.03399346607355943)}
     '''
 
-    NN.nn_model(dataset_mg.get_X_train(), 3,dataset_mg.get_y_train())
+    #NN.nn_model(dataset_mg.get_X_train(), 3,dataset_mg.get_y_train())
 
-    y_pred = NN.predict(dataset_mg.get_X_test())
+    #y_pred = NN.predict(dataset_mg.get_X_test())
 
 
-    y_pred_class = np.argmax(y_pred, axis=1)
-    y_test_class = np.argmax(dataset_mg.get_y_test(), axis=1)
-    print("Accuracy: ", accuracy_score(y_test_class, y_pred_class))
+    #y_pred_class = np.argmax(y_pred, axis=1)
+    #y_test_class = np.argmax(dataset_mg.get_y_test(), axis=1)
+    #print("Accuracy: ", accuracy_score(y_test_class, y_pred_class))
 
-    NN.plot_accuracy()
-    NN.plot_loss()
+    #NN.plot_accuracy()
+    #NN.plot_loss()
 
 else:
     # flask

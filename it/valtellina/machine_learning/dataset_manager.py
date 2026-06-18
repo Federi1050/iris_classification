@@ -30,7 +30,7 @@ class DatasetManager:
     @staticmethod
     def scarica_dataset():
         df = pd.read_csv("dataset/Iris.csv")
-        df.drop(columns=["Id"], inplace=True)
+        # df.drop(columns=["Id"], inplace=True) eliminata tramite power BI
         return df
 
     @staticmethod
@@ -67,3 +67,4 @@ class DatasetManager:
         scaler.fit(self.X_train)
         self.X_train = scaler.transform(self.X_train)
         self.X_test = scaler.transform(self.X_test)
+        return scaler

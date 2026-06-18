@@ -25,10 +25,10 @@ class FlaskManager:
 
         self.__ds_mg = DatasetManager()
         self.__ds_mg.split_data('Species')
-        self.__ds_mg.scaling()
+        scaler = self.__ds_mg.scaling()
 
         print("inizializzo neural network")
-        self.__nn = NeuralNetwork()
+        self.__nn = NeuralNetwork(scaler)
 
         print("training modello")
         X_train = self.__ds_mg.get_X_train()
@@ -162,7 +162,7 @@ class FlaskManager:
                 'PetalWidthCm': input.get('PetalWidthCm'),
             }
             y_pred = self.__nn.predict(pd.DataFrame([oggetto]))
-            return jsonify(y_pred.tolist())
+            return jsonify(y_pred)
 
         @self.app.route('/grafici_valutazione')
         def grafici():

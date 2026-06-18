@@ -1,4 +1,3 @@
-import keras
 import numpy as np
 from keras.layers import Dense, Dropout, Flatten, Input
 from keras.utils import to_categorical
@@ -8,9 +7,10 @@ from sklearn.model_selection import StratifiedKFold
 from sklearn.preprocessing import StandardScaler
 
 class NeuralNetwork:
-    def __init__(self):
+    def __init__(self, scaler):
         self.history = None
         self.model = Sequential()
+        self.scaler = scaler
 
     def grid_search_cv(self, X, y, activations, optimizers, n_splits=5, epochs=100):
 
@@ -77,9 +77,6 @@ class NeuralNetwork:
 
         return all_results
 
-
-
-
     def nn_model(self, input, output_shape, target):
         input_shape = (input.shape[1],)
         self.model.add(Dense(16, activation='tanh', input_shape=input_shape))
@@ -90,7 +87,6 @@ class NeuralNetwork:
 
         self.history = self.model.fit(input, target, validation_split=0.2, epochs=100)
 
-
     '''
     confronto relu-tanh: entrambe le funzioni di attivazione permettono al modello
     di raggiungere prestazioni molto elevate sul dataset Iris.
@@ -100,11 +96,25 @@ class NeuralNetwork:
     indicando che il problema è facilmente apprendibile dal modello considerato.
     '''
 
-
     def predict(self, test):
-        predictions = self.model.predict(test)
+        class_names = ['Iris-setosa','Iris-versicolor','Iris-virginica']
+        input_scaled = self.scaler.transform(test)
+        probabilities = self.model.predict(input_scaled, verbose=0)
+        results = []
+        for prob in probabilities:
+            probs_dict = {
+                class_names[i]: round(float(prob[i]), 4)
+                for i in range(len(class_names))
+            }
 
-        return predictions
+            predicted_class = class_names[np.argmax(prob)]
+
+            results.append({
+                "predicted_class": predicted_class,
+                "probabilities": probs_dict
+            })
+
+        return results
 
     def plot_loss(self):
         plt.figure()
