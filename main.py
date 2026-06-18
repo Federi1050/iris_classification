@@ -5,7 +5,7 @@ from it.valtellina.interfaccia_utente.flask_manager import FlaskManager
 from it.valtellina.machine_learning.dataset_manager import DatasetManager
 from it.valtellina.machine_learning.neural_network import NeuralNetwork
 
-testing = True
+testing = False
 
 if testing:
     dataset_mg = DatasetManager()
@@ -35,25 +35,25 @@ if testing:
     '''
     risultati gridsearch 50 epochs:
     BEST MODEL:
-    {'activation': 'tanh', 'optimizer': 'RMSprop', 'mean_accuracy': np.float64(0.9733333110809326), 'std': np.float64(0.013333344459533693)}
-    {'activation': 'tanh', 'optimizer': 'RMSprop', 'mean_accuracy': np.float64(0.9733333110809326), 'std': np.float64(0.013333344459533693)}
-    {'activation': 'tanh', 'optimizer': 'adam', 'mean_accuracy': np.float64(0.9666666507720947), 'std': np.float64(0.021081849811218006)}
-    {'activation': 'relu', 'optimizer': 'adam', 'mean_accuracy': np.float64(0.9466666460037232), 'std': np.float64(0.02666666209697973)}
-    {'activation': 'relu', 'optimizer': 'RMSprop', 'mean_accuracy': np.float64(0.9466666460037232), 'std': np.float64(0.02666666209697973)}
-    {'activation': 'tanh', 'optimizer': 'sgd', 'mean_accuracy': np.float64(0.9066666483879089), 'std': np.float64(0.06798693097817053)}
-    {'activation': 'relu', 'optimizer': 'sgd', 'mean_accuracy': np.float64(0.8466666579246521), 'std': np.float64(0.10456256178911083)}
+    {'activation': 'tanh', 'optimizer': 'RMSprop', 'mean_accuracy': np.float64(0.9333333134651184), 'std': np.float64(0.05962848250986275)}
+    {'activation': 'tanh', 'optimizer': 'RMSprop', 'mean_accuracy': np.float64(0.9333333134651184), 'std': np.float64(0.05962848250986275)}
+    {'activation': 'tanh', 'optimizer': 'adam', 'mean_accuracy': np.float64(0.899999988079071), 'std': np.float64(0.04714044926931553)}
+    {'activation': 'relu', 'optimizer': 'adam', 'mean_accuracy': np.float64(0.8733333349227905), 'std': np.float64(0.061101003022815056)}
+    {'activation': 'relu', 'optimizer': 'RMSprop', 'mean_accuracy': np.float64(0.8666666626930237), 'std': np.float64(0.055777324653567245)}
+    {'activation': 'tanh', 'optimizer': 'sgd', 'mean_accuracy': np.float64(0.846666669845581), 'std': np.float64(0.05811864364670431)}
+    {'activation': 'relu', 'optimizer': 'sgd', 'mean_accuracy': np.float64(0.7800000071525574), 'std': np.float64(0.058118657320947315)}
     '''
 
     '''
     risultati gridsearch 100 epochs:
      BEST MODEL:
-    {'activation': 'tanh', 'optimizer': 'adam', 'mean_accuracy': np.float64(0.9933333277702332), 'std': np.float64(0.013333344459533693)}
-    {'activation': 'tanh', 'optimizer': 'adam', 'mean_accuracy': np.float64(0.9933333277702332), 'std': np.float64(0.013333344459533693)}
-    {'activation': 'tanh', 'optimizer': 'RMSprop', 'mean_accuracy': np.float64(0.9933333277702332), 'std': np.float64(0.013333344459533693)}
-    {'activation': 'relu', 'optimizer': 'RMSprop', 'mean_accuracy': np.float64(0.9866666555404663), 'std': np.float64(0.016329945245311346)}
-    {'activation': 'relu', 'optimizer': 'adam', 'mean_accuracy': np.float64(0.9799999833106995), 'std': np.float64(0.016329945245311346)}
-    {'activation': 'relu', 'optimizer': 'sgd', 'mean_accuracy': np.float64(0.9533333063125611), 'std': np.float64(0.026666665077209474)}
-    {'activation': 'tanh', 'optimizer': 'sgd', 'mean_accuracy': np.float64(0.9466666579246521), 'std': np.float64(0.03399346607355943)}
+    {'activation': 'relu', 'optimizer': 'adam', 'mean_accuracy': np.float64(0.95333331823349), 'std': np.float64(0.03399346607355943)}
+    {'activation': 'relu', 'optimizer': 'adam', 'mean_accuracy': np.float64(0.95333331823349), 'std': np.float64(0.03399346607355943)}
+    {'activation': 'tanh', 'optimizer': 'adam', 'mean_accuracy': np.float64(0.95333331823349), 'std': np.float64(0.0452155428292956)}
+    {'activation': 'tanh', 'optimizer': 'RMSprop', 'mean_accuracy': np.float64(0.9466666460037232), 'std': np.float64(0.04000000556310116)}
+    {'activation': 'relu', 'optimizer': 'RMSprop', 'mean_accuracy': np.float64(0.9399999856948853), 'std': np.float64(0.06463573864557808)}
+    {'activation': 'relu', 'optimizer': 'sgd', 'mean_accuracy': np.float64(0.8933333158493042), 'std': np.float64(0.05333333462476845)}
+    {'activation': 'tanh', 'optimizer': 'sgd', 'mean_accuracy': np.float64(0.8800000071525573), 'std': np.float64(0.08844332247117753)}
     '''
 
     #NN.nn_model(dataset_mg.get_X_train(), 3,dataset_mg.get_y_train())

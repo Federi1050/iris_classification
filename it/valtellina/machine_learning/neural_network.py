@@ -12,7 +12,7 @@ class NeuralNetwork:
         self.model = Sequential()
         self.scaler = scaler
 
-    def grid_search_cv(self, X, y, activations, optimizers, n_splits=5, epochs=100):
+    def grid_search_cv(self, X, y, activations, optimizers, n_splits=5, epochs=50):
 
         skf = StratifiedKFold(n_splits=n_splits, shuffle=True, random_state=42)
 
@@ -79,8 +79,8 @@ class NeuralNetwork:
 
     def nn_model(self, input, output_shape, target):
         input_shape = (input.shape[1],)
-        self.model.add(Dense(16, activation='tanh', input_shape=input_shape))
-        self.model.add(Dense(16, activation='tanh'))
+        self.model.add(Dense(16, activation='relu', input_shape=input_shape))
+        self.model.add(Dense(16, activation='relu'))
         self.model.add(Dense(output_shape, activation='softmax'))
 
         self.model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
